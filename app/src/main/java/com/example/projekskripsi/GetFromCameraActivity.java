@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class Main3Activity extends AppCompatActivity {
+public class GetFromCameraActivity extends AppCompatActivity {
+
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
@@ -96,6 +97,7 @@ public class Main3Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             //set the image captured to our ImageView
+            Helper.Log("camera");
             mImageView.setImageURI(image_uri);
         }
 

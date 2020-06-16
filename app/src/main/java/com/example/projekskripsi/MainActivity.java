@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainimg = (ImageView) findViewById(R.id.MainImg);
-        welcometext = (TextView) findViewById(R.id.WelcomeText);
-        desctext = (TextView) findViewById(R.id.deskripsi);
-        mulai = (Button) findViewById(R.id.mulai);
+        mainimg = findViewById(R.id.MainImg);
+        welcometext = findViewById(R.id.WelcomeText);
+        desctext = findViewById(R.id.deskripsi);
+        mulai = findViewById(R.id.mulai);
 
         mulai.setOnClickListener((new View.OnClickListener() {
             @Override

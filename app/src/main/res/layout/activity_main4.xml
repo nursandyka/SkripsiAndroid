@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main4Activity">
+    tools:context=".SelectFromGalleryActivity">
 
     
     <ImageView
         android:id="@+id/image_view3"
         android:layout_width="400dp"
-        android:layout_height="600dp"/>
+        android:layout_height="600dp"
+        android:contentDescription="TODO" />
 
   <Button
       android:id="@+id/pilihgambar"

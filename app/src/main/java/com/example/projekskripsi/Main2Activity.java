@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -17,15 +16,15 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        ambilfoto = (ImageView) findViewById(R.id.ambil);
-        unggah = (ImageView) findViewById(R.id.unggah);
-        tentang = (ImageView) findViewById(R.id.tentang);
-        keluar = (ImageView) findViewById(R.id.keluar);
+        ambilfoto = findViewById(R.id.ambil);
+        unggah = findViewById(R.id.unggah);
+        tentang = findViewById(R.id.tentang);
+        keluar = findViewById(R.id.keluar);
 
         ambilfoto.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Main2Activity.this, Main3Activity.class);
+                Intent i = new Intent(Main2Activity.this, GetFromCameraActivity.class);
                 startActivity(i);
             }
         }));
@@ -33,7 +32,7 @@ public class Main2Activity extends AppCompatActivity {
         unggah.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Main2Activity.this, Main4Activity.class);
+                Intent i = new Intent(Main2Activity.this, SelectFromGalleryActivity.class);
                 startActivity(i);
             }
         }));
