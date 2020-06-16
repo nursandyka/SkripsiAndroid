@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">projekskripsi</string>
+<!--    <string name="server_url">http://127.0.0.1:5000/img</string>-->
+    <string name="server_url">http://192.168.43.63:5000/img</string> //my
+<!--    <string name="server_url">http://192.168.43.130:5000/img</string> //mas sandy-->
 </resources>
