@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.concurrent.ExecutionException;
 
 public class GetFromCameraActivity extends AppCompatActivity {
 
@@ -24,7 +28,7 @@ public class GetFromCameraActivity extends AppCompatActivity {
     Button mCaptureBtn;
     ImageView mImageView;
 
-    Uri image_uri;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +68,10 @@ public class GetFromCameraActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera");
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         //Camera intent
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
 
@@ -93,12 +97,29 @@ public class GetFromCameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //called when image was captured from camera
-
         super.onActivityResult(requestCode, resultCode, data);
+        Context _context = getApplicationContext();
         if (resultCode == RESULT_OK) {
             //set the image captured to our ImageView
-            Helper.Log("camera");
-            mImageView.setImageURI(image_uri);
+            mImageView.setImageURI(imageUri);
+
+            //Target image size
+            int inputSize =64;
+
+            //resize image and convert to base64
+            String bs64 = Helper.resizeImageToBase64(_context, imageUri,inputSize);
+
+            try {
+                // send bs64 to server and get result
+                AsyncTask result =  new ServerTask().execute(getString(R.string.server_url),bs64);
+                Helper.Log(result.get().toString());
+            } catch (ExecutionException e) {
+                Helper.Error(e.toString());
+            } catch (InterruptedException e) {
+                Helper.Error(e.toString());
+            } catch (Exception e){
+                Helper.Error(e.toString());
+            }
         }
 
     }
